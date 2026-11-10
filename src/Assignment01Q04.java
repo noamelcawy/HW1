@@ -3,26 +3,23 @@ import java.util.Arrays;
 public class Assignment01Q04 {
 
    public static int[] shiftArrayCyclic(int[] array, int move, char direction) {
-        // אם הכיוון אינו 'R' או 'L', המערך נשאר ללא שינוי
+
         if (direction != 'R' && direction != 'L') {
             return array;
         }
 
-        // אם המערך ריק, בעל איבר בודד, או שאין הזזה
         if (array.length <= 1 || move == 0) {
             return array;
         }
 
-        // טיפול בהזזה שלילית: הופכים את הסימן ומחליפים כיוון
         if (move < 0) {
             move = -move;
             direction = (direction == 'R') ? 'L' : 'R';
         }
 
         int n = array.length;
-        int k = move % n; // צמצום סיבובים שלמים
+        int k = move % n; 
 
-        // המרת הזזה שמאלה להזזה שקולה ימינה
         if (direction == 'L') {
             k = (n - k) % n;
         }
@@ -31,13 +28,11 @@ public class Assignment01Q04 {
             return array;
         }
 
-        // שימוש במערך עזר כדי לחשב את המיקומים החדשים
         int[] temp = new int[n];
         for (int i = 0; i < n; i++) {
             temp[(i + k) % n] = array[i];
         }
 
-        // העתקת הערכים בחזרה למערך המקורי
         for (int i = 0; i < n; i++) {
             array[i] = temp[i];
         }
